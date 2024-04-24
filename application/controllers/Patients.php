@@ -58,6 +58,7 @@ class Patients extends CI_Controller {
     
     
     public function add() {
+        //656565656545554
         
     }//end-func
     
