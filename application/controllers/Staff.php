@@ -21,6 +21,7 @@ class Staff extends CI_Controller {
     $this->load->view('staff/index',$data);
     $this->load->view('templates/footer');
 
+    //add new something
 
     }
 
