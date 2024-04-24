@@ -1,0 +1,28 @@
+
+@media (min-width:768px) {
+    .navbar-header {
+        margin-right: 150px!important;
+    }
+}
+
+
+.navbar-brand img {
+    margin-top: -11px;
+}
+
+#my-main {
+    min-height: 454px;
+    margin-top: 75px;
+}
+.my-footer{
+    height:50px;
+    line-height: 50px;
+    background-color: #134556;
+    color: #fff;
+    text-align: center;
+    
+}
+.pagination {
+    margin-top:0px;
+    margin-bottom:0px;
+}
