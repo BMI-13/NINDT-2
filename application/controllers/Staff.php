@@ -11,8 +11,6 @@ class Staff extends CI_Controller {
         $this->load->model('Staff_model');
     }//end-func
 
-
-
     public function index($page=0) {
     $data='';
     $this->load->view('templates/head');
