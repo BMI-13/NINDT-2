@@ -19,24 +19,27 @@ and open the template in the editor.
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <div class='row'>
-                                <div class='col-md-4'>
-                                    <h3 class="panel-title" style='margin-top:10px;'>Patients</h3>
+                                <div class='col-md-3'>
+                                    <h3 class="panel-title" style='margin-top:10px;'>Machines</h3>
                                 </div>
-                                <div class='col-md-8 text-right'>
-                                    <form class="form-inline" method="post" action="<?php echo site_url('patients/search'); ?>" onsubmit='return validate_search()' >
+                                <div class='col-md-2'>
+                                <button type="button" class="btn btn-default"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add</button>
+                                </div>
+                                <div class='col-md-7 text-right'>
+                                    <form class="form-inline" method="post" action="<?php echo site_url('machines/search'); ?>" onsubmit='return validate_search()' >
                                         <div class="form-group">
-                                            <select class="form-control input-sm mycss-search-key" name="lst_key" id="lst_key">
-                                                <option value="p_id_pk" <?php if($this->session->userdata("patients_search_key") == "p_id_pk"){echo "selected='selected'";}?> >Reg No</option>
-                                                <option value="p_gender" <?php if($this->session->userdata("patients_search_key") == "p_gender"){echo "selected='selected'";}?> >Gender: m | f</option>
-                                                <option value="p_status" <?php if($this->session->userdata("patients_search_key") == "p_status"){echo "selected='selected'";}?> >Status: C | L | D</option>
+                                            <select class="form-control input-sm mycss-search-key" name="list_key" id="list_key">
+                                                <option value="ma_id" <?php if($this->session->userdata("machines_search_key") == "ma_id"){echo "selected='selected'";}?> >Machine No</option>
+                                                <option value="ma_manufacturer" <?php if($this->session->userdata("machines_search_key") == "ma_manufacturer"){echo "selected='selected'";}?> >Manufacturer</option>
+                                                <option value="ma_status" <?php if($this->session->userdata("machines_search_key") == "ma_status"){echo "selected='selected'";}?> >Status: A | N </option>
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control input-sm mycss-search-value" name="txt_value" id="txt_value" value="<?php echo $this->session->userdata("patients_search_value");?>"  placeholder="search value" />
+                                            <input type="text" class="form-control input-sm mycss-search-value" name="txt_value" id="txt_value" value="<?php echo $this->session->userdata("machines_search_value");?>"  placeholder="search value" />
                                         </div>
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-search"></span></button>
-                                            <a href="<?php echo site_url('patients/clear_search'); ?>"><button type="button" class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-erase"></span></button></a>
+                                            <a href="<?php echo site_url('machines/clear_search'); ?>"><button type="button" class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-erase"></span></button></a>
                                         </div>
                                     </form>
                                 </div>
@@ -48,26 +51,35 @@ and open the template in the editor.
                                 <table class="table table-striped table-hover">
                                     <thead>
                                         <tr>
-                                            <th>Reg No</th>
-                                            <th>Patient Name</th>
-                                            <th class="text-center">Gender</th>
-                                            <th class='text-center'>Status</th>
+                                            <th>Machine ID</th>
+                                            <th>Unit</th>
+                                            <th class="text-center">Manufacturer - Model</th>
+                                            <th class='text-center'>Current Status</th>
                                             <th>&nbsp;</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
                                             //populating with data
-                                            if( !$patients ){
+                                            if( !$machines ){
                                                 echo "<tr><td colspan='5' align='center'>There is no result to display.</td></tr>" ;
                                             }else{
-                                                foreach( $patients as $pt ){
-                                                    $view_url   = site_url("pateints/view/{$pt['p_id']}/{$page}");
+                                                foreach( $machines as $machine ){
+                                                    $view_url   = site_url("pateints/view/{$machine['machine_id']}/{$page}");
                                                     echo "<tr>
-                                                            <td>{$pt['p_id']}</td>
-                                                            <td>{$pt['p_name']}</td>
-                                                            <td class='text-center'>{$pt['p_gender']}</td>
-                                                            <td class='text-center'>{$pt['p_status']}</td>
+                                                            <td>{$machine['machine_id']}</td>
+                                                            <td>{$machine['machine_serial']}</td>
+                                                            <td class='text-center'>{$machine['machine_manufacturer']} - {$machine['machine_model']}</td>
+                                                            <td class='text-center'>";
+                                                            
+                                                           echo ($machine['machine_active'])?
+                                                                '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>'
+                                                                :
+                                                                '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>';
+
+                                                            
+
+                                                            echo "</td>
                                                             <td class='text-right mycss-middle' >
                                                                 <a href='{$view_url}'><button type='button' class='btn btn-primary btn-xs' title='more' ><span class='glyphicon glyphicon-chevron-right'></button></a>
                                                             </td></tr>";

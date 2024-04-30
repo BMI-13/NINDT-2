@@ -69,21 +69,21 @@ class Patients extends CI_Controller {
     public function search() {
 
         //set search criteria
-        $key = $this->input->post('lst_key');
+        $key = $this->input->post('list_key');
         $val = $this->input->post('txt_value');
        
         $this->session->set_userdata('patients_is_search',TRUE);
         $this->session->set_userdata('patients_search_key',$key);
         $this->session->set_userdata('patients_search_value',$val);
 
-        redirect('patients');
+        redirect('machines');
     }//end-func
 
     public function clear_search() {
         $this->session->unset_userdata('patients_is_search');
         $this->session->unset_userdata('patients_search_key');
         $this->session->unset_userdata('patients_search_value');
-        redirect('patients');
+        redirect('machines');
     }//end-func
     
 }//end-class
