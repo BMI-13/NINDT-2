@@ -19,7 +19,7 @@ $config['sys_imgs']       = $base_url . 'assets/sys_imgs/';
 
 
 //------- Pagination settings: for data grids ------------------------
-$config['rows_per_page']  = 1;
+$config['rows_per_page']  = 10;
 
 //-------- Email settings ------------------------------------
 $config['email']      = '';
