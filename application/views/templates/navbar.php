@@ -10,7 +10,7 @@
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="#"> 
-            <img src="<?php echo $this->config->item('sys_imgs'). 'logo.png'; ?>" alt=""/>
+            <img src="<?php echo $this->config->item('sys_imgs'). 'logo22.png'; ?>" alt="Logo" height="45" width="45"/>
         </a>
       </div>
 
@@ -31,14 +31,39 @@
             <!-- staff -->
             <?php if($this->session->userdata('user_role') === 'staff') { ?>
                 <li class="dropdown active">
-                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog"></span> Patients  <span class="caret"></span></a>
+                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-heart" aria-hidden="true"></i>  Patients  <span class="caret"></span></a>
                   <ul class="dropdown-menu">
                     <li><a href="<?php echo site_url('patients'); ?>"><span class="glyphicon glyphicon-user" ></span> Patients</a></li>
                     <li><a href="<?php echo site_url('patients/add'); ?>"><span class="glyphicon glyphicon-plus" ></span> New Patient</a></li>
                   </ul>
                 </li>
-                <li><a href="<?php echo site_url('reports'); ?>"><span class="glyphicon glyphicon-file" ></span> Reports</a></li>
-                    
+
+
+                <li><a href="<?php echo site_url(); ?>"><i class="fa fa-life-ring" aria-hidden="true"></i> </a></li>
+                <li class="dropdown active">
+                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <i class="glyphicon glyphicon-scale" aria-hidden="true"></i>  Machines  <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="<?php echo site_url('machines'); ?>"><span class="glyphicon glyphicon-scale" ></span> Machines </a></li>
+                    <li><a href="<?php echo site_url('HDPrescription'); ?>"><span class="glyphicon glyphicon-plus" ></span> New Machine </a></li>
+                    <li><a href="<?php echo site_url('HDPrescription'); ?>"><span class="glyphicon glyphicon-file" ></span> Statistical Reports </a></li>
+                  </ul>
+                </li>
+
+                   
+                
+                <!-- This starts the dropdown menu of HD Prescription section of NavBar ----------------------------------------------- -->
+                <li class="dropdown active">
+                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <i class="glyphicon glyphicon-list-alt" aria-hidden="true"></i>  HD Prescriptions  <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="<?php echo site_url('HDPrescription'); ?>"><span class="glyphicon glyphicon-list" ></span> HD Prescriptions</a></li>
+                    <li><a href="<?php echo site_url('HDPrescription'); ?>"><span class="glyphicon glyphicon-plus" ></span> New HD Prescriptions</a></li>
+                    <li><a href="<?php echo site_url('HDPrescription'); ?>"><span class="glyphicon glyphicon-file" ></span> Statistical Reports </a></li>
+                  </ul>
+                </li>
+
             <?php } ?>    
           
         </ul>
