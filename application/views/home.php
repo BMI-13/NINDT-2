@@ -5,15 +5,7 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <html>
-    <head>
-        <title>BS3</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="<?php echo $this->config->item('css'). 'bootstrap.min.css'; ?>" rel="stylesheet" type="text/css"/>
-        <link href="<?php echo $this->config->item('css'). 'app.css'; ?>" rel="stylesheet" type="text/css"/>
-        <script src="<?php echo $this->config->item('js'). 'jquery-3.7.1.min.js'; ?>" type="text/javascript"></script>
-        <script src="<?php echo $this->config->item('js'). 'bootstrap.min.js'; ?>" type="text/javascript"></script>
-        <script src="<?php echo $this->config->item('js'). 'app.js'; ?>" type="text/javascript"></script>
+<?php $this->load->view('templates/head'); ?>    
         <style type="text/css">
             body {
                 background-image: url('<?php echo $this->config->item('sys_imgs'). 'login.jpg'; ?>');
@@ -22,14 +14,19 @@ and open the template in the editor.
             }
             
             #my-signin {
-                margin-top: 80px;
+                margin-top: 70px;
             }
         
         </style>
-        
-    </head>
     <body class='container-fluid'>
+
+    <div class="text-center" style=" display: flex;      justify-content: center;      align-items: center;">
+
+        <img src="<?php echo $this->config->item('sys_imgs'). 'logo22.png'; ?>" alt="Logo" height="200" width="200"/ class="img-responsive" style="padding: 10px;">
+    </div>
         <section id="my-main">
+        <div class="row text-center" style="color: white; padding: 10px; background-color: #007bff;"><h1>HD List</h1></div>
+
             <div class="row">
                 <div class='col-md-offset-4 col-md-4'>
                     <div class="panel panel-primary" id='my-signin'>
