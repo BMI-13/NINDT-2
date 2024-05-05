@@ -1,4 +1,6 @@
-
+<header>
+        <?php $this->load->view('templates/navbar'); ?>    
+        </header>
 <div class="container">
 
 
@@ -7,7 +9,6 @@
 
 
 <?php
-echo $search;
 ?>
 
     <form class="container" action="<?php echo site_url('sessions/new'); ?>" method="post" >
@@ -24,6 +25,16 @@ echo $search;
     <form action="<?php echo site_url('sessions/step_01'); ?>" method="post" id="form2">
 
     <input type="hidden" class="form-control" id="p_id_pk" name="p_id_pk" value="<?php echo isset($filtered_data) ? $filtered_data->p_id_pk : ''; ?>" required>
+
+
+        <div class="form-group">
+            <label for="p_old_nindt_id">NINDT ID:</label>
+
+            <select class="form-control" id="hds_type" name="hds_type" required>
+                <option value=""></option>
+                <?php foreach ($hds_types as $key=> $hds_type) { echo "<option value='{$key}'>{$hds_type}</option> ";  }?>
+            </select>
+            </div>
 
 
         <div class="form-group">

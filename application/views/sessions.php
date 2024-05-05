@@ -7,7 +7,7 @@ and open the template in the editor.
 <html>
 <?php 
 
-
+//var_dump($sessions);
 ?>        
 
     <body>
@@ -41,8 +41,8 @@ and open the template in the editor.
                                         <div class="form-group">
                                             <select class="form-control input-sm mycss-search-key" name="list_key" id="list_key">
                                                 <option value="hds_id_public " <?php if($this->session->userdata("sessions_search_key") == "hds_id_public "){echo "selected='selected'";}?> >Dialysis No</option>
-                                                <option value="hds_patientid" <?php if($this->session->userdata("sessions_search_key") == "hds_patientid"){echo "selected='selected'";}?> >Patient NINDT ID</option>
-                                                <option value="ma_status" <?php if($this->session->userdata("sessions_search_key") == "ma_status"){echo "selected='selected'";}?> >Status: A | N </option>
+                                                <option value="hds_id_public" <?php if($this->session->userdata("sessions_search_key") == "hds_id_public"){echo "selected='selected'";}?> >Patient NINDT ID</option>
+                                                <option value="hds_id_public" <?php if($this->session->userdata("sessions_search_key") == "hds_id_public"){echo "selected='selected'";}?> >Status: 0 | 1 | 2 | 3 | 4 </option>
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -62,34 +62,57 @@ and open the template in the editor.
                                 <table class="table table-striped table-hover">
                                     <thead>
                                         <tr>
-                                            <th>Prescription ID</th>
-                                            <th>Unit</th>
-                                            <th class="text-center">Manufacturer - Model</th>
-                                            <th class='text-center'>Current Status</th>
+                                            <th>Dialysis ID</th>
+                                            <th>NAme</th>
+                                            <th class="text-center">Bed - Machine</th>
+                                            <th class='text-center'>Status</th>
                                             <th>&nbsp;</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
+
+$hds_status_link=array(1=>"start",2=>"processing",3=>"stop",4=>"completed", null=>'completed');
+
+
                                             //populating with data
+        $criteria[] = 'hds_createddt IS NOT NULL';
+        $criteria[] = 'hds_created_user_id_pk IS NOT NULL';
+
                                             if( !$sessions ){
                                                 echo "<tr><td colspan='5' align='center'>There is no result to display.</td></tr>" ;
                                             }else{
-                                                foreach( $sessions as $prescription ){
-                                                    $view_url   = site_url("sessions/view/{$prescription['prescription_id_pk']}");
+                                                foreach( $sessions as $session ){
+
+                                                    $view_url   = site_url("sessions/{$hds_status_link[$session['hds_status']]}/{$session['hds_id_public']}");
                                                     echo "<tr>
-                                                            <td>{$prescription['prescription_public_id']}</td>
-                                                            <td>{$prescription['prescription_serial']}</td>
-                                                            <td class='text-center'>{$prescription['prescription_manufacturer']} - {$prescription['prescription_model']}</td>
+                                                            <td>{$session['hds_id_public']}</td>
+                                                            <td>{$session['p_name']} - {$session['hds_patientid']} years</td>
+                                                            <td class='text-center'>{$hds_types[$session['hds_type']]} </td>
                                                             <td class='text-center'>";
-                                                            
-                                                           echo ($prescription['prescription_active'])?
-                                                                '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>'
-                                                                :
-                                                                '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>';
 
                                                             
+                                                            if($session['hds_status'] ==0)
+                                                            {echo'<i class="fa fa-flag-checkered" aria-hidden="true"></i>';}
 
+                                                          elseif($session['hds_status'] ==1)
+                                                            {echo'<i class="fa fa-hourglass-start" aria-hidden="true"></i>';}
+
+                                                          elseif($session['hds_status'] ==2)
+                                                            {echo'<i class="fa fa-refresh fa-spin fa-1x fa-fw"></i>';}
+
+                                                          elseif($session['hds_status'] ==3)
+                                                            {echo'<i class="fa fa-stop" aria-hidden="true"></i>';}
+
+                                                          elseif($session['hds_status'] ==4)
+                                                            {echo'<i class="glyphicon glyphicon-ok" aria-hidden="true"></i>';}
+
+                                                          
+
+
+
+
+                                                           
                                                             echo "</td>
                                                             <td class='text-right mycss-middle' >
                                                                 <a href='{$view_url}'><button type='button' class='btn btn-primary btn-xs' title='more' ><span class='glyphicon glyphicon-chevron-right'></button></a>

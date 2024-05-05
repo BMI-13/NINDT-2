@@ -12,7 +12,6 @@ class Machines_model extends CI_Model{
  // Function to get all machine data with pagination
     public function get_machines($criteria='', $offset=''){
 
-        var_dump($criteria);
         $fields = array(
             'machine_id_pk','machine_public_id', 'machine_serial','machine_unit', 'machine_manufacturer', 'machine_model',  'machine_active'
         );
@@ -72,5 +71,19 @@ class Machines_model extends CI_Model{
     }//end-function
 
 
+ // Function to get active machines
+    public function get_active_machines(){
+
+        $fields = array(
+            'machine_id_pk','machine_public_id', 'machine_manufacturer', 'machine_model'
+        );
+        $this->db->select($fields);
+        $this->db->where('machine_active', 1); 
+        $query = $this->db->get($this->tbl); 
+
+
+        return $query->result();
+
+    }//end-function
 
 }//end-class

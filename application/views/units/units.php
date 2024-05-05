@@ -74,8 +74,9 @@ and open the template in the editor.
                                                 echo "<tr><td colspan='5' align='center'>There is no result to display.</td></tr>" ;
                                             }else{
                                                 foreach( $units as $unit ){
-                                                    $view_url   = site_url("units/view/{$unit['unit_id_pk']}");
-                                                    echo "<tr>
+                                                    $view_url   = site_url("units/view/{$unit['unit_id_pk']}"); // var_dump($view_url);
+                                                    echo "<tr>                                                  
+
                                                             <td>{$unit['unit_name']}</td>
                                                             <td>{$unit['unit_hospital']}</td>
                                                             <td class='text-center'>";
@@ -90,11 +91,11 @@ and open the template in the editor.
 
                                                             <?php if($unit['unit_active'])  {?>
 
-                                                            <button onclick="ChangeStatus('disable',<?php $unit['unit_id_pk'] ?>)"   class='btn btn-default' href='#' role='button'><span class='glyphicon glyphicon-remove-sign'></span> Disable</button>
+                                                            <button onclick="ChangeStatus('disable',<?php echo $unit['unit_id_pk'] ?>)"   class='btn btn-default' href='#' role='button'><span class='glyphicon glyphicon-remove-sign'></span> Disable</button>
                                                             <?php }else{ ?> 
-                                                            <button onclick="ChangeStatus('enable',<?php $unit['unit_id_pk'] ?>)" class='btn btn-default' href='#' role='button'><span class='glyphicon glyphicon-ok-sign'></span> Enable</button>
+                                                            <button onclick="ChangeStatus('enable',<?php echo $unit['unit_id_pk'] ?>)" class='btn btn-default' href='#' role='button'><span class='glyphicon glyphicon-ok-sign'></span> Enable</button>
                                                             <?php } ?>
-                                                            <button onclick="confirmEdit(<?php $unit['unit_id_pk'] ?>)" class='btn btn-default' href='#' role='button'><span class='glyphicon glyphicon-edit'></span> Edit</button>
+                                                            <button onclick="confirmEdit(<?php echo $unit['unit_id_pk'] ?>)" class='btn btn-default' href='#' role='button'><span class='glyphicon glyphicon-edit'></span> Edit</button>
                                                             <?php 
                                                             /*echo "    <a href='{$view_url}'><button type='button' class='btn btn-primary btn-xs' title='more' ><span class='glyphicon glyphicon-chevron-right'></button></a>*/
                                                             echo "</td></tr>";
@@ -123,7 +124,7 @@ and open the template in the editor.
 
                 <script>
     function ChangeStatus(status,unit_id) {
-        // Display a SweetAlert confirmation dialog
+
         swal({
             title: "Are you sure?",
             text: "Once disabled, you will not be able to use this machine!",
@@ -140,7 +141,6 @@ and open the template in the editor.
     }
 
     function changeStatusMachine(status,unit_id) {
-console.log(status);
         // Send an AJAX request to disable the machine
         $.ajax({
             url: "<?php echo site_url('units/enabledisable_unit'); ?>",
@@ -176,7 +176,7 @@ console.log(status);
 
 
 
-    function confirmEdit(machimeid) {
+    function confirmEdit(unitid) {
         // Display a SweetAlert confirmation dialog
         swal({
             title: "Are you sure?",
@@ -188,7 +188,7 @@ console.log(status);
         .then((willEdit) => {
             if (willEdit) {
                 // If user confirms, redirect to the edit page with unit_id
-                window.location.href = "<?php echo site_url('units/edit/' )?>"+machimeid ;
+                window.location.href = "<?php echo site_url('units/edit/' )?>"+unitid ;
             }
         });
     }

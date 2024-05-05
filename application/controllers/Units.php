@@ -38,7 +38,7 @@ class Units extends CI_Controller {
 
             //pagination
             $total_rows = $this->Units_model->get_total_units($criteria) ;
-            $this->app->set_pagination($total_rows,site_url('machines/index'));
+            $this->app->set_pagination($total_rows,site_url('units/index'));
             $data['pagination_html'] = $this->pagination->create_links();
             $data['total_rows'] = $total_rows;
 
@@ -56,35 +56,13 @@ class Units extends CI_Controller {
        $this->load->view('templates/footer');
     }//end-function
     
-    
-    // public function index() {
-
-    //     $data['units'] = $this->Units_model->get_all_units();
-
-
-        
-    //         //pagination
-    //         $total_rows = $this->Units_model->get_total_units($criteria) ;
-    //         $this->app->set_pagination($total_rows,site_url('machines/index'));
-    //         $data['pagination_html'] = $this->pagination->create_links();
-    //         $data['total_rows'] = $total_rows;
-
-
-
-
-
-    //     $this->load->view('templates/head');
-    //     $this->load->view('templates/navbar');
-    //     $this->load->view('units/units', $data);
-    //     $this->load->view('templates/footer');
-    // }
-
     // Function to add a new unit
     public function add() {
         // Handle form submission
         if ($_POST &&  $this->input->post('unit_id') == "add") {
             $unit_data = array(
                 'unit_name' => $this->input->post('unit_name'),
+                'u_public_name' => $this->input->post('u_public_name'),
                 'unit_hospital' => $this->input->post('unit_hospital')
             );
             $this->Units_model->add_unit($unit_data);
@@ -97,24 +75,34 @@ class Units extends CI_Controller {
 
     // Function to edit a unit
     public function edit($unit_id) {
+  
         // Handle form submission
         if ($_POST) {
+            var_dump($_POST);
             $unit_data = array(
                 'unit_name' => $this->input->post('unit_name'),
+                'u_public_name' => $this->input->post('u_public_name'),
                 'unit_hospital' => $this->input->post('unit_hospital')
             );
             $this->Units_model->update_unit($unit_id, $unit_data);
-            redirect('unit');
+            redirect('unit4');
         } else {
-            $data['unit'] = $this->Units_model->get_unit($unit_id);
-            $this->load->view('edit_unit', $data);
+            $data['unit'] = $this->Units_model->get_punit_from_pkid($unit_id);
+            $data['status'] = $unit_id;
+      $this->load->view('templates/head');
+        $this->load->view('templates/navbar');
+            $this->load->view('units/add_unit', $data);
+            $this->load->view('templates/footer');
+
         }
+
+
     }
 
     // Function to delete a unit
     public function delete($unit_id) {
         $this->Units_model->delete_unit($unit_id);
-        redirect('unit');
+        redirect('units');
     }
 
     //search unit
@@ -128,7 +116,7 @@ class Units extends CI_Controller {
         $this->session->set_userdata('units_search_key',$key);
         $this->session->set_userdata('units_search_value',$val);
 
-        redirect('machines');
+        redirect('units');
     }//end-function
 
 
@@ -137,27 +125,27 @@ class Units extends CI_Controller {
                    
 
             
-        // Assuming you're passing machine ID via POST
-        $machine_id = $this->input->post('unit_id');
+        // Assuming you're passing unit ID via POST
+        $unit_id = $this->input->post('unit_id');
         $changestatusto = ($this->input->post('status')=='disable')? false : true;
 
         
         // Perform any necessary validation
         //var_dump($changestatusto);
-        // Call the model to update the machine status
-        $result = $this->Machines_model->enabledisable_machine($machine_id,$changestatusto);
+        // Call the model to update the unit status
+        $result = $this->Units_model->enabledisable_unit($unit_id,$changestatusto);
        //var_dump($changestatusto );
         if ($result) {
-            // Machine successfully disabled
+            // Unit successfully disabled
             $response = array(
                 'status' => 'success',
-                'message' => 'Machine Status changed successfully!'
+                'message' => 'Unit Status changed successfully!'
             );
         } else {
-            // Failed to disable machine
+            // Failed to disable unit
             $response = array(
                 'status' => 'error',
-                'message' => 'Failed to change status of the machine. Please try again.'
+                'message' => 'Failed to change status of the unit. Please try again.'
             );
         }
         

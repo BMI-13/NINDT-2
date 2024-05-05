@@ -137,55 +137,45 @@ and open the template in the editor.
 <div class="panel panel-default">
   <div class="panel-body">
   <h4><strong>Post HD Parameters:</strong></h4>
-  <form action="<?php echo site_url('sessions/end/'.$session->hds_id_public); ?>" method="post">
-  <input type="hidden"  id="save_to_end" name="save_to_end" value="save_to_end" >
-<input type="hidden"  id="hds_id_public" name="hds_id_public" value="<?php echo $session->hds_id_pk ; ?>" >
-<div class="form-group">
-    <label for="hds_bloodflowrate">Blood Flow Rate:</label>
-    <input type="text" class="form-control" id="hds_bloodflowrate" name="hds_bloodflowrate" value="<?= isset($session->hds_bloodflowrate) ? $session->hds_bloodflowrate : ''; ?>" <?= ($session->hds_bloodflowrate == NULL) ? 'required' : 'readonly'; ?>>
-</div>
-
-<div class="form-group">
-    <label for="hds_uf">UF Rate:</label>
-    <input type="text" class="form-control" id="hds_uf" name="hds_uf" value="<?= isset($session->hds_uf) ? $session->hds_uf : ''; ?>" <?= ($session->hds_uf == NULL) ? 'required' : 'readonly'; ?>>
-</div>
-
-
-<div class="form-group">
-    <label for="hds_heparinmaintenance">Heparin Maintenance:</label>
-    <input type="text" class="form-control" id="hds_heparinmaintenance" name="hds_heparinmaintenance" value="<?= isset($session->hds_heparinmaintenance) ? $session->hds_heparinmaintenance : ''; ?>" <?= ($session->hds_heparinmaintenance == NULL) ? 'required' : 'readonly'; ?>>
+  <div class="form-group">
+    <label for="hds_heparinmaintenance">Heparin Maintenance: (units)</label>
+    <div class="form-control"><?php echo isset($session) ? $session->hds_heparinmaintenance : ''; ?></div>
 </div>
 
 <div class="form-group">
     <label for="hds_posthdweight">Post-HD Weight:</label>
-    <input type="text" class="form-control" id="hds_posthdweight" name="hds_posthdweight" value="<?= isset($session->hds_posthdweight) ? $session->hds_posthdweight : ''; ?>" <?= ($session->hds_posthdweight == NULL) ? 'required' : 'readonly'; ?>>
+    <div class="form-control"><?php echo isset($session) ? $session->hds_posthdweight : ''; ?></div>
 </div>
 
 <div class="form-group">
     <label for="hds_posthdbp">Post-HD BP:</label>
-    <input type="text" class="form-control" id="hds_posthdbp" name="hds_posthdbp" value="<?= isset($session->hds_posthdbp) ? $session->hds_posthdbp : ''; ?>" <?= ($session->hds_posthdbp == NULL) ? 'required' : 'readonly'; ?>>
+    <div class="form-control"><?php echo isset($session) ? $session->hds_posthdbp : ''; ?></div>
 </div>
 
+<div class="form-group">
+    <label for="hds_bloodflowrate">Blood Flow Rate:</label>
+    <div class="form-control"><?php echo isset($session) ? $session->hds_bloodflowrate : ''; ?></div>
+</div>
 
+<div class="form-group">
+    <label for="hds_uf">UF:</label>
+    <div class="form-control"><?php echo isset($session) ? $session->hds_uf : ''; ?></div>
+</div>
 
 <div class="form-group">
     <label for="hds_erythropoietindose">Erythropoietin Dose:</label>
-    <input type="text" class="form-control" id="hds_erythropoietindose" name="hds_erythropoietindose" value="<?= isset($session->hds_erythropoietindose) ? $session->hds_erythropoietindose : ''; ?>" <?= ($session->hds_erythropoietindose == NULL) ? 'required' : 'readonly'; ?>>
+    <div class="form-control"><?php echo isset($session) ? $session->hds_erythropoietindose : ''; ?></div>
 </div>
 
 <div class="form-group">
-    <label for="hds_remarks">Remarks/Complications:</label>
-    <textarea class="form-control" id="hds_remarks" name="hds_remarks" rows="10" <?= ($session->hds_remarks == NULL) ? 'required' : 'readonly'; ?>><?= isset($session->hds_remarks) ? $session->hds_remarks : ''; ?></textarea>
+    <label for="hds_remarks">Remarks:</label>
+    <textarea class="form-control" id="hds_remarks" name="hds_remarks" rows="10" 
+    <?php echo ($session->hds_remarks == NULL) ? 'required' : 'readonly'; ?>><?php echo isset($session) ? nl2br($session->hds_remarks) : ''; ?></textarea>
 </div>
 
 
 
-<?php if($session->hds_status==3 ){ ?>
-    <input type="submit" value="End Session"  >
-          
-<?php } ?>
 
-</form>
   </div>
 </div>
 

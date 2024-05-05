@@ -9,17 +9,16 @@ class Units_model extends CI_Model {
         $this->load->database();
     }
 
-     // Function to total machine number
+     // Function to total unit number
      public function get_total_units($criteria = '') {
         if($criteria != '') { $this->db->where($criteria); }
         return $this->db->get($this->tbl)->num_rows();
     }//end-function
 
 
-     // Function to get machine data with pagination
+     // Function to get unit data with pagination
      public function get_units($criteria='', $offset=''){
 
-        var_dump($criteria);
         $fields = array(
             'unit_id_pk','unit_name', 'unit_hospital',  'unit_active'
         );
@@ -37,17 +36,24 @@ class Units_model extends CI_Model {
     }
 
     // Function to update a unit
-    public function update_unit($unit_id, $data) {
-        $this->db->where('unit_id', $unit_id);
+    public function update_unit($unit_id_pk, $data) {
+        $this->db->where('unit_id_pk', $unit_id_pk);
         $this->db->update($this->tbl, $data);
         return $this->db->affected_rows() > 0;
     }
 
     // Function to delete a unit
-    public function delete_unit($unit_id) {
-        $this->db->where('unit_id', $unit_id);
+    public function delete_unit($unit_id_pk) {
+        $this->db->where('unit_id_pk', $unit_id_pk);
         $this->db->delete($this->tbl);
         return $this->db->affected_rows() > 0;
+    }
+
+    public function get_punit_from_public_id($u_public_name) {
+        return $this->db->get_where($this->tbl, array('u_public_name' => $u_public_name))->row_array();
+    }
+public function get_punit_from_pkid($unit_id_pk) {
+        return $this->db->get_where($this->tbl, array('unit_id_pk' => $unit_id_pk))->row_array();
     }
 
     public function get_active_units()
@@ -57,6 +63,18 @@ class Units_model extends CI_Model {
                           ->get($this->tbl);
         return $query->result();
     }
+
+    public function enabledisable_unit($unit_id, $changestatusto) {
+        // var_dump($unit_id );
+
+         // Update the unit status to disabled in the database
+         $this->db->where('unit_id_pk', $unit_id);
+         $this->db->update($this->tbl, array('unit_active' => $changestatusto));
+         
+         // Check if the update was successful
+         return $this->db->affected_rows() > 0;
+ }//end-function
+
 
 
 }

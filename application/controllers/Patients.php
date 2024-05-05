@@ -102,8 +102,15 @@ class Patients extends CI_Controller {
     
     public function view($p_id){
 
+        $this->load->model('Sessions_model');
+
+        
         // Call the get_machine_by_id method to fetch the machine data
         $data['patient']  = $this->Patients_model->get_patient_by_id($p_id);
+
+        $datapatient = $this->Patients_model->get_patient_by_id($p_id);
+        $data['sessions']  = $this->Sessions_model->get_patient_sessions_by_nindtid($datapatient->p_nindt_id);
+
 
 
         $this->load->view('templates/head');

@@ -26,9 +26,7 @@
             <select class="form-control" id="p_gender" name="p_gender" required>
                 <?php 
                 foreach ( $active_units as $active_unit){
-                    echo "<option value='{$active_unit->unit_name}' >{$active_unit->unit_name}</option>";
-
-
+                    echo "<option value='{$active_unit->u_public_name}' >{$active_unit->unit_name}</option>";
                 }
                 ?>
 

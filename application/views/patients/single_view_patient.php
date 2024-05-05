@@ -100,9 +100,69 @@ print_r ( "<a href='tel:{$data}' class='list-group-item-text'>{$data}</a><br />"
 
     <div class="panel panel-info">
 <div class="panel-heading">
-    <div class="card-header">
+    <div class="card-header ">
      <h3> Previous 10 Dialysis </h3>
     </div>
+
+    <table class="table bg-warning">
+                                    <thead>
+                                        <tr>
+                                            <th>Dialysis ID</th>
+                                            <th class="text-center">Type</th>
+                                            <th class='text-center'>Status</th>
+                                            <th>&nbsp;</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+
+$hds_status_link=array(1=>"start",2=>"processing",3=>"stop",4=>"completed", null=>'completed');
+$hds_types=array(0=>"Haemodialysis",1=>"Peritoneal Dialysis",null=>'-');
+//populating with data
+
+                                            if( !$sessions ){
+                                                echo "<tr><td colspan='5' align='center'>There is no result to display.</td></tr>" ;
+                                            }else{
+                                                foreach( $sessions as $session ){ 
+                                                    $view_url   = site_url("sessions/{$hds_status_link[$session->hds_status]}/{$session->hds_id_public}");
+                                                    echo "<tr>
+                                                            <td>{$session->hds_id_public}</td>
+                                                            <td class='text-center'>{$hds_types[$session->hds_type]} </td>
+                                                            <td class='text-center'>";
+
+                                                            
+                                                            if($session->hds_status ==0)
+                                                            {echo'<i class="fa fa-flag-checkered" aria-hidden="true"></i>';}
+
+                                                          elseif($session->hds_status ==1)
+                                                            {echo'<i class="fa fa-hourglass-start" aria-hidden="true"></i>';}
+
+                                                          elseif($session->hds_status ==2)
+                                                            {echo'<i class="fa fa-refresh fa-spin fa-1x fa-fw"></i>';}
+
+                                                          elseif($session->hds_status ==3)
+                                                            {echo'<i class="fa fa-stop" aria-hidden="true"></i>';}
+
+                                                          elseif($session->hds_status ==4)
+                                                            {echo'<i class="glyphicon glyphicon-ok" aria-hidden="true"></i>';}
+
+                                                          
+
+
+
+
+                                                           
+                                                            echo "</td>
+                                                            <td class='text-right mycss-middle' >
+                                                                <a href='{$view_url}'><button type='button' class='btn btn-primary btn-xs' title='more' ><span class='glyphicon glyphicon-chevron-right'></button></a>
+                                                            </td></tr>";
+                                                }//for each
+                                            }//else
+                                        ?>
+                                    </tbody>
+                                </table>
+
+
 </div>
 </div>
     

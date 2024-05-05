@@ -76,6 +76,10 @@ class Patients_model extends CI_Model{
         return $this->db->get_where($this->tbl, array('p_id_pk' => $p_id_pk))->row_array();
     }
 
+ public function get_patient_from_public_id($p_nindt_id) {
+        return $this->db->get_where($this->tbl, array('p_nindt_id' => $p_nindt_id))->row_array();
+    }
+
     // Function to update a patient
     public function update_patient($p_id_pk, $data) {
         $this->db->where('p_id_pk', $p_id_pk);

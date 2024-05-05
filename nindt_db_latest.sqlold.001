@@ -270,7 +270,7 @@ CREATE TABLE IF NOT EXISTS `tbl20_hemodialysis_sessions` (
   `hds_prehdbp` varchar(10) DEFAULT NULL,
   `hds_heparinloading` varchar(50) DEFAULT NULL,
   `hds_heparinmaintenance` varchar(50) DEFAULT NULL,
-  `hds_enddt` datetime DEFAULT NULL,
+  `hds_stopdt` datetime DEFAULT NULL,
   `hds_posthdweight` float(6,2) DEFAULT NULL,
   `hds_posthdbp` varchar(10) DEFAULT NULL,
   `hds_bloodflowrate` float(6,3) DEFAULT NULL,
